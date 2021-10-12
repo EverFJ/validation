@@ -9,6 +9,9 @@ const port = 8000
 const usersRoutes = require("./router/users")
 
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: false
+}))
 
 app.engine("hbs", exphbs({
     defaultLayout: "main",
