@@ -9,3 +9,12 @@
   </select>
   <button type="submit">Envoyer</button>
 </form>
+
+{{#each errors}}
+  <h4>error in {{this.param}}</h4>
+  <ul>
+    <li>{{this.param}} : {{this.value}}</li>
+    <li>error : {{this.msg}}</li>
+    <li>location : {{this.location}}</li>
+  </ul>
+{{/each}}

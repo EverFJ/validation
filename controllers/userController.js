@@ -40,9 +40,11 @@ const showUser = (req, res) => {
 const signUpUser = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        res.status(500).json({
-            errors: errors.array()
-        })
+        console.log("error", errors)
+        res.render("signup", errors)
+        // res.status(500).json({
+        //     errors: errors.array()
+        // })
         return
     }
     console.log("signupUser req.body", req.body)

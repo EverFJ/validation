@@ -12,9 +12,13 @@ router.post("/signup",
     expressValidator.body("username").isLength({
         min: 4
     }),
-    expressValidator.body("password").isLength({
-        min: 8
+    expressValidator.body("password").custom(value => {
+        const schema = new passwordValidator();
+        schema
+            .is().min(8)
+        // .is().not().oneOf(username)
     }),
+
     userController.signUpUser)
 
 module.exports = router;
