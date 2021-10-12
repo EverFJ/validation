@@ -1,6 +1,7 @@
 const {
     validationResult
 } = require("express-validator")
+const userModel = require("../models/userModel")
 
 const users = [{
         username: "ever",
@@ -17,11 +18,21 @@ const users = [{
 const listUsers = (req, res) => {
     const usersList = users.map(user => user.username)
     res.json(usersList)
+    // User.find()
+    //     .then(data => res.json(data))
+    //     .catch(console.error)
 }
 
 const showUser = (req, res) => {
-    const user = users.find(user => user.username === req.params.username)
-    res.json(user)
+    if (req.params.username) {
+        const user = users.find(user => user.username === req.params.username)
+        res.json(user)
+    }
+    if (req.params.id) {
+        const user = users.find(user => user.id === req.params.id)
+        res.json(user)
+    }
+
 }
 
 const getSignupPage = (req, res) => {
@@ -38,6 +49,13 @@ const signUpUser = (req, res) => {
     }
     console.log("signupUser req.body", req.body)
     users.push(req.body)
+    userModel.create({
+            username: req.body.username,
+            password: req.body.password,
+            city: req.body.city
+        })
+        .then(console.log)
+        .catch(console.error)
     res.send("User saved !")
 }
 
