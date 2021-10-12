@@ -1,5 +1,11 @@
 <form action="/users/signup" method="POST">
   <input type="email" name="email" placeholder="Votre email" />
   <input type="password" name="password" placeholder="Votre mot de passe" />
+  <label for="city">Choose your city</label>
+  <select name="city">
+    <option value="paris">Paris</option>
+    <option value="tokyo">Tokyo</option>
+    <option value="losangeles">Los Angeles</option>
+  </select>
   <button type="submit">Envoyer</button>
 </form>
