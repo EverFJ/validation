@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const expressValidator = require("express-validator")
 const passwordValidator = require("password-validator")
+const {
+    check,
+    oneOf
+} = require("express-validator")
 const userController = require("../controllers/userController")
 
 router.get("/", userController.listUsers)
@@ -16,9 +20,8 @@ router.post("/signup",
         const schema = new passwordValidator();
         schema
             .is().min(8)
-        // .is().not().oneOf(username)
     }),
-
+    // check("city").isIn(["Paris", "Tokyo", "Los Angeles"]),
     userController.signUpUser)
 
 module.exports = router;

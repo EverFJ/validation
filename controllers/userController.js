@@ -40,14 +40,16 @@ const showUser = (req, res) => {
 const signUpUser = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        console.log("error", errors)
-        res.render("signup", errors)
+        // console.log("error", errors)
+        res.render("signup", {
+            errors: errors
+        })
         // res.status(500).json({
         //     errors: errors.array()
         // })
         return
     }
-    console.log("signupUser req.body", req.body)
+    // console.log("signupUser req.body", req.body)
     // users.push(req.body)
     // res.send("User saved !")
     userModel.create({
