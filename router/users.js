@@ -4,8 +4,6 @@ const expressValidator = require("express-validator")
 const passwordValidator = require("password-validator")
 const userController = require("../controllers/userController")
 
-
-
 router.get("/", userController.listUsers)
 router.get("/username/:username", userController.showUser)
 router.get("/:id", userController.showUser)
