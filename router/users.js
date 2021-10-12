@@ -10,6 +10,9 @@ router.post("/signup",
     expressValidator.body("password").custom(value => {
         const schema = new passwordValidator();
         schema.is().min(10)
+            .is().max(100)
+            .has().uppercase()
+            .has().digits(2)
         return schema.validate(value)
     }),
     userController.signUpUser)
