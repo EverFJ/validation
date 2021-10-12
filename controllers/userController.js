@@ -9,35 +9,31 @@ const getSignupPage = (req, res) => {
     res.render("signup")
 }
 const listUsers = (req, res) => {
-    // const usersList = users.map(user => user.username)
-    // res.json(usersList)
-
     userModel.find()
         .then(users => {
             const userList = users.map(user => user.username)
-            res.json(userList)
+            res.render("listUsers", {
+                userList: userList
+            })
         })
         .catch(err => res.json(err))
 }
 const showUser = (req, res) => {
     if (req.params.username) {
-        // const user = users.find(user => user.username === req.params.username)
-        // res.json(user)
-
         userModel.findOne({
                 username: req.params.username
             })
-            .then(user => res.json(user))
+            .then(user => {
+                console.log(user)
+                res.render("showUser", user)
+            })
             .catch(err => res.json(err))
     }
     if (req.params.id) {
-        // const user = users.find(user => user._id === req.params.id)
-        // res.json(user)
-
         userModel.findOne({
                 _id: req.params.id
             })
-            .then(user => res.json(user))
+            .then(user => res.render("showUser", user))
             .catch(err => res.json(err))
     }
 }

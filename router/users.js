@@ -6,8 +6,8 @@ const userController = require("../controllers/userController")
 
 router.get("/", userController.listUsers)
 router.get("/username/:username", userController.showUser)
-router.get("/:id", userController.showUser)
 router.get("/signup", userController.getSignupPage)
+router.get("/:id", userController.showUser)
 router.post("/signup",
     expressValidator.body("username").isLength({
         min: 4
@@ -15,7 +15,6 @@ router.post("/signup",
     expressValidator.body("password").isLength({
         min: 8
     }),
-    expressValidator.body("city").isIn(["Paris", "Tokyo", "Los Angeles"]),
     userController.signUpUser)
 
 module.exports = router;
