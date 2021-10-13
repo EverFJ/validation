@@ -24,8 +24,12 @@ app.set("views", "views")
 
 app.use("/users", usersRoutes)
 
-mongoose.connect(db, () => {
-    console.log(`Mongoose connected to ${db}`)
+mongoose.connect(db, (err) => {
+    if (err) {
+        console.error(err)
+        process.exit(1)
+    }
+    console.log(`Mongoose connected successfully to ${db}`)
 })
 
 server.listen(port, () => {

@@ -1,15 +1,18 @@
 const {
     validationResult
 } = require("express-validator")
-const userModel = require("../models/userModel")
+const User = require("../models/User")
 const users = require("../users.json")
 
 
 const getSignupPage = (req, res) => {
     res.render("signup")
 }
+const getSigninPage = (req, res) => {
+    res.render("signin")
+}
 const listUsers = (req, res) => {
-    userModel.find()
+    User.find()
         .then(users => {
             const userList = users.map(user => user.username)
             res.render("listUsers", {
@@ -20,7 +23,7 @@ const listUsers = (req, res) => {
 }
 const showUser = (req, res) => {
     if (req.params.username) {
-        userModel.findOne({
+        User.findOne({
                 username: req.params.username
             })
             .then(user => {
@@ -30,7 +33,7 @@ const showUser = (req, res) => {
             .catch(err => res.status(404).json(err))
     }
     if (req.params.id) {
-        userModel.findOne({
+        User.findOne({
                 _id: req.params.id
             })
             .then(user => res.status(200).render("showUser", user))
@@ -41,18 +44,12 @@ const signUpUser = (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         // console.log("error", errors)
-        res.status(200).render("signup", {
+        res.status(500).render("signup", {
             errors: errors.errors
         })
-        // res.status(500).json({
-        //     errors: errors.array()
-        // })
         return
     }
-    // console.log("signupUser req.body", req.body)
-    // users.push(req.body)
-    // res.send("User saved !")
-    userModel.create({
+    User.create({
             username: req.body.username,
             password: req.body.password,
             city: req.body.city
@@ -63,6 +60,7 @@ const signUpUser = (req, res) => {
 
 module.exports = {
     getSignupPage,
+    getSigninPage,
     signUpUser,
     listUsers,
     showUser
