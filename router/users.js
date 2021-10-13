@@ -16,12 +16,16 @@ router.post("/signup",
     expressValidator.body("username").isLength({
         min: 4
     }),
-    expressValidator.body("password").custom(value => {
-        const schema = new passwordValidator();
-        schema
-            .is().min(8)
+    expressValidator.body("password").isLength({
+        min: 8
     }),
-    // check("city").isIn(["Paris", "Tokyo", "Los Angeles"]),
+    expressValidator.body("city").custom(value => {
+        const whitelist = ["paris", "tokyo", "los angeles"];
+        if (whitelist.includes(value.toLowerCase())) {
+            return Promise.resolve()
+        } else return Promise.reject("Invalid city")
+    }),
+
     userController.signUpUser)
 
 module.exports = router;

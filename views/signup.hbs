@@ -3,13 +3,13 @@
   <input type="password" name="password" placeholder="Your password..." />
   <label for="city">Select your city</label>
   <select name="city">
+    <option value="" selected disabled>Select your city</option>
     <option value="paris">Paris</option>
     <option value="tokyo">Tokyo</option>
     <option value="losangeles">Los Angeles</option>
   </select>
   <button type="submit">Envoyer</button>
 </form>
-
 {{#each errors}}
   <h4>error in {{this.param}}</h4>
   <ul>
